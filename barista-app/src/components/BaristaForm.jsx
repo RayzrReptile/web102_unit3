@@ -4,9 +4,16 @@ import drinksJson from "./drinks.json";
 
 const BaristaForm = () => {
 
+    // Initialize first drink
+    let oldIndex = Math.floor(Math.random() * drinksJson.drinks.length);
+    let drink = drinksJson.drinks[oldIndex].name;
+    let recipe = drinksJson.drinks[oldIndex].ingredients;
+
     // Variables
-    const [currentDrink, setCurrentDrink] = useState('');
-    const [trueRecipe, setTrueRecipe] = useState({});
+    const [currentDrink, setCurrentDrink] = useState(drink);
+    const [trueRecipe, setTrueRecipe] = useState(recipe);
+
+    const [catToggle, setCatToggle] = useState('hidden')
 
     const [correct_temp, setCheckedTemp] = useState('');
     const [correct_milk, setCheckedMilk] = useState('');
@@ -20,19 +27,19 @@ const BaristaForm = () => {
         'blended': ''
     });
     const ingredients = {
-        'temperature' : ['hot', 'lukewarm', 'cold'],
-        'syrup': ['mocha', 'vanilla', 'toffee', 'maple', 'caramel', 'other', 'none'],
-        'milk': ['cow', 'oat', 'goat', 'almond', 'none'],
-        'blended': ['yes', 'turbo', 'no']
+        'temperature' : ['hot', 'lukewarm', 'cold', 'cat'],
+        'syrup': ['mocha', 'vanilla', 'toffee', 'maple', 'caramel', 'other', 'cat', 'none'],
+        'milk': ['cow', 'oat', 'goat', 'almond', 'cat', 'none'],
+        'blended': ['yes', 'turbo', 'cat', 'no']
     };
 
     // Functions
     const onCheckAnswer = () => {
         if (trueRecipe.temp != inputs['temperature']){
-            setCheckedTemperature('wrong');
+            setCheckedTemp('wrong');
         }
         else {
-            setCheckedTemperature("correct");
+            setCheckedTemp("correct");
         }
         if (trueRecipe.milk != inputs['milk']){
             setCheckedMilk('wrong');
@@ -52,12 +59,28 @@ const BaristaForm = () => {
         else {
             setCheckedBlended("correct");
         }
+
+        // Cat Condition
+        if (inputs['temperature'] == 'cat' &&
+            inputs['milk'] == 'cat' &&
+            inputs['syrup'] == 'cat' &&
+            inputs['blended'] == 'cat') {
+                setCatToggle('')
+                setCheckedTemp('cat');
+                setCheckedSyrup('cat');
+                setCheckedMilk('cat');
+                setCheckedBlended('cat');
+            }
     };
 
     const getNextDrink = () => {
-        let randomDrinkIndex = Math.floor(Math.random() * drinksJson.drinks.length);
-        setCurrentDrink(drinksJson.drinks[randomDrinkIndex].name);
-        setTrueRecipe(drinksJson.drinks[randomDrinkIndex].ingredients);
+        let newIndex = Math.floor(Math.random() * drinksJson.drinks.length);
+        while (newIndex == oldIndex) {
+            newIndex = Math.floor(Math.random() * drinksJson.drinks.length);
+        }
+        setCurrentDrink(drinksJson.drinks[newIndex].name);
+        setTrueRecipe(drinksJson.drinks[newIndex].ingredients);
+        oldIndex = newIndex;
     }
 
     const onNewDrink = () => {
@@ -70,6 +93,7 @@ const BaristaForm = () => {
         setCheckedMilk('')
         setCheckedSyrup('')
         setCheckedBlended('')
+        setCatToggle('hidden')
             
         getNextDrink();
     };
@@ -77,6 +101,10 @@ const BaristaForm = () => {
     // Main Return Block
     return (
         <div>
+            <div className="cat-container" id={catToggle}>
+                <h3>MEOW</h3>
+                <img src="https://www.wfla.com/wp-content/uploads/sites/71/2023/05/GettyImages-1389862392.jpg?w=2560&h=1440&crop=1" alt="Cat!" className='cat-image'/>
+            </div>
             <h2>Hi, I'd like to order a:</h2>
             <div className="drink-container">
                 <h2 className="mini-header">{currentDrink}</h2>
