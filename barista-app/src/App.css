@@ -5,38 +5,51 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin: auto;
+  position: relative;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.mini-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px #0003, 0 6px 20px #00000030;
+  border-radius: 24px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+li {
+  color: #000000;
+  list-style-type: none;
+  margin-top: 6px;
+  padding: 2px;
+  background-color: rgb(153, 202, 153);
+  border-radius: 12px;
 }
 
-.card {
-  padding: 2em;
+.answer-space {
+  background-color: rgb(97, 132, 97);
+  height: 32px;
+  width: 150px;
+  padding-top: 8px;
+  border-radius: 24px;
+  text-align: center;
 }
 
-.read-the-docs {
-  color: #888;
+.drink-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mini-header {
+  background-color: rgb(97, 132, 97);
+  height: 32px;
+  width: 92%;
+  padding-top: 8px;
+  border-radius: 24px;
 }
